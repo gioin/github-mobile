@@ -1,13 +1,27 @@
 import React from "react";
-import { Svg, Path } from "react-native-svg";
+import { View, StyleSheet } from "react-native";
+import Svg, { Path } from "react-native-svg";
 
-interface YourSvgComponentProps {
-  className?: string;
-  color?: string;
-}
+export const CloseIcon: React.FC = () => {
+  return (
+    <View style={styles.icon}>
+      <Svg width={24} height={24} viewBox="0 0 16 16" fill="none">
+        <Path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"
+          fill="#bdbfc9"
+        />
+      </Svg>
+    </View>
+  );
+};
 
-export const CloseIcon = ({ color }: YourSvgComponentProps) => (
-  <Svg height="16" width="16" fill={color || "#7c8590"}>
-    <Path d="M2.343 13.657A8 8 0 1 1 13.658 2.343 8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042L6.94 8 4.97 9.97a.749.749 0 0 0 .326 1.275.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275.749.749 0 0 0-.734.215L8 6.94Z" />
-  </Svg>
-);
+const styles = StyleSheet.create({
+  icon: {
+    // width: 16,
+    // height: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
