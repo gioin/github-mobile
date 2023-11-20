@@ -1,14 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import LandingScreen from "./view/screens/LandingScreen";
+import React, { createContext, useState } from "react";
+import { StyleSheet } from "react-native";
 import { colors } from "./styles/base";
+import Routing from "./view/components/Routing";
+
+export const SearchContext = createContext({});
 
 export default function App() {
+  const [textValue, setTextValue] = useState("");
+
   return (
-    <View style={styles.container}>
-      <LandingScreen />
-    </View>
+    <SearchContext.Provider value={{ setTextValue: setTextValue, textValue }}>
+      <Routing />
+    </SearchContext.Provider>
   );
 }
 

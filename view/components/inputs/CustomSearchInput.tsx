@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   forwardRef,
   InputHTMLAttributes,
@@ -13,6 +13,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  Keyboard,
 } from "react-native";
 import {
   ArrowLeft,
@@ -21,6 +22,7 @@ import {
   UserIcon,
 } from "../../../assets/icons";
 import { colors, fonts } from "../../../styles/base";
+import { SearchContext } from "../../../App";
 
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   searchList?: { [key: string]: any }[] | null;
@@ -31,7 +33,10 @@ export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
 const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
   ({ type = "text", searchList, isLoading, onChange, ...props }, ref) => {
     const [value, setValue] = useState("");
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(true);
+    const [clicked, setClicked] = useState(false);
+    const { setTextValue }: any = useContext(SearchContext);
+
     const inputRef = useRef(null);
 
     const handleInputChange = (text: string) => {
@@ -42,60 +47,60 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
     };
 
     return (
-      <View>
-        <View style={styles.topPart}>
-          <TouchableOpacity
-            style={styles.backIconContainer}
-            onPress={() => console.log("Back icon pressed")}
-          >
-            <ArrowLeft />
-          </TouchableOpacity>
-          <View style={styles.container}>
-            <TextInput
-              value={value}
-              style={styles.input}
-              onChangeText={handleInputChange}
-              placeholder="Search GitHub"
-              placeholderTextColor="#6e767d"
-            />
-            {value.length > 0 && (
-              <TouchableOpacity
-                onPress={handleClearInput}
-                style={styles.clearIconContainer}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View style={styles.container}>
+          <TextInput
+            value={value}
+            autoFocus
+            style={styles.input}
+            onChangeText={(text) => {
+              handleInputChange(text);
+              setTextValue(text);
+              if (onChange !== undefined) onChange(text);
+            }}
+            placeholder="Search GitHub"
+            placeholderTextColor="#6e767d"
+            onFocus={() => {
+              setClicked(true);
+            }}
+          />
+          {value.length > 0 && (
+            <TouchableOpacity
+              onPress={handleClearInput}
+              style={styles.clearIconContainer}
+            >
+              {/* <CloseIcon /> */}
+              <View
+                style={{
+                  padding: 1,
+                  backgroundColor: "#7a797e",
+                  borderRadius: 111,
+                }}
               >
-                <CloseIcon />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-        {value && (
-          <View style={styles.bottomPart}>
-            {[
-              { name: "repository", icon: <RepoIcon /> },
-              { name: "user", icon: <UserIcon /> },
-            ].map((e, i) => (
-              <View>
-                <TouchableHighlight
-                  style={styles.searchOption}
-                  underlayColor={colors.hover}
-                  onPress={() => console.log("Pressed!")}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 20,
-                      paddingHorizontal: 16,
-                    }}
-                  >
-                    {e.icon}
-                    <Text style={styles.text}>{value}</Text>
-                  </View>
-                </TouchableHighlight>
+                <CloseIcon size={15} color="#19191a" />
               </View>
-            ))}
-          </View>
-        )}
+            </TouchableOpacity>
+          )}
+        </View>
+        <View>
+          {clicked && (
+            <Text
+              style={{ color: "#2b6fc3", fontSize: 17, marginLeft: 16 }}
+              onPress={() => {
+                Keyboard.dismiss();
+                setClicked(false);
+              }}
+            >
+              Cancel
+            </Text>
+          )}
+        </View>
       </View>
     );
   }
@@ -117,22 +122,40 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   bottomPart: { paddingTop: 6 },
+  // container: {
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   justifyContent: "flex-start",
+  //   alignItems: "center",
+  //   gap: 20,
+  //   paddingBottom: 1,
+  //   paddingVertical: 5,
+  //   borderBottomWidth: 1,
+  //   borderTopColor: "none",
+  //   borderBottomColor: colors.border,
+  // },
   container: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
     gap: 20,
-    paddingBottom: 1,
-    paddingVertical: 5,
-    borderBottomWidth: 1,
-    borderTopColor: "none",
-    borderBottomColor: colors.border,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: colors.primary.black,
+    borderRadius: 10,
+    backgroundColor: "#19191a",
   },
+  // input: {
+  //   fontSize: fonts.primary,
+  //   color: colors.primary.white,
+  //   height: 45,
+  //   flex: 1,
+  // },
   input: {
-    fontSize: fonts.primary,
+    fontSize: 15,
     color: colors.primary.white,
-    height: 45,
+    height: 20,
     flex: 1,
   },
   clearIconContainer: {
