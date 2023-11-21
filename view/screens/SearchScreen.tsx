@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Platform, StyleSheet, Text, View } from "react-native";
 import { colors, fonts } from "../../styles/base";
 import { RepoIcon, UserIcon } from "../../assets/icons";
 import { useNavigation } from "@react-navigation/native";
@@ -35,22 +35,27 @@ export default function SearchScreen() {
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    alignItems: "center",
                     width: "100%",
                   }}
                 >
                   <View style={{ flexDirection: "row", gap: 20 }}>
-                    {item.icon}
+                    <View style={{ marginTop: Platform.OS === "ios" ? 0 : 3 }}>
+                      {item.icon}
+                    </View>
                     <Text style={styles.text}>{textValue}</Text>
                   </View>
                   {item.name === "repository" && (
                     <Text
                       style={{
-                        color: colors.primary.white,
+                        color: colors.secondary.white,
                         fontSize: 12,
-                        marginRight: "10%",
+                        marginRight: "6%",
                         alignItems: "center",
                         textAlign: "center",
+                        position: "absolute",
                         marginTop: 3,
+                        right: 0,
                       }}
                     >
                       Not working yet

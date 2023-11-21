@@ -1,7 +1,7 @@
 import React from "react";
-import { Button, Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors } from "../../styles/base";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Header from "./layouts/Header";
 import SearchScreen from "../screens/SearchScreen";
@@ -15,7 +15,7 @@ export default function Routing() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          animation: "slide_from_left",
+          animation: "slide_from_right",
           statusBarTranslucent: true,
           contentStyle: { backgroundColor: colors.primary.black },
           headerStyle: {

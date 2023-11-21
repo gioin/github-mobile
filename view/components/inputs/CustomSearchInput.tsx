@@ -32,8 +32,6 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
     const handleClearInput = () => {
       setValue("");
       setTextValue("");
-
-      console.log("helllooo");
     };
 
     return (

@@ -11,6 +11,7 @@ import {
   StyleProp,
   ViewStyle,
   TextStyle,
+  Keyboard,
 } from "react-native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { InteractionManager } from "react-native";
@@ -65,13 +66,15 @@ const Header = ({
               Platform.OS === "ios" ? styles.backButtonIOS : styles.backButton
             }
           >
-            <TouchableOpacity
-              style={{ alignSelf: "center" }}
-              onPress={() => console.log("Back icon pressed")}
-            >
+            <TouchableOpacity style={{ alignSelf: "center" }}>
               <HeaderBackButton
                 label=" "
-                onPress={() => navigator.goBack()}
+                onPress={() => {
+                  Keyboard.dismiss();
+                  setTimeout(() => {
+                    navigator.goBack();
+                  }, 50);
+                }}
                 tintColor={
                   Platform.OS === "ios"
                     ? colors.primary.blueIOS
