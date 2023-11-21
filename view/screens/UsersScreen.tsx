@@ -7,6 +7,7 @@ import {
   Text,
   View,
   ActivityIndicator,
+  Linking,
 } from "react-native";
 import { colors } from "../../styles/base";
 import { useAppState } from "../../state/useState";
@@ -34,7 +35,7 @@ export default function UsersScreen() {
           data={searchData}
           style={{}}
           renderItem={({ item }) => (
-            <List key={item.id} onPress={() => void console.log("")}>
+            <List key={item.id} onPress={() => void Linking.openURL(item.url)}>
               <View
                 style={{
                   flexDirection: "row",
@@ -66,7 +67,6 @@ export default function UsersScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? 55 : 0,
-    backgroundColor: "#19191a",
+    backgroundColor: colors.secondary.black,
   },
 });

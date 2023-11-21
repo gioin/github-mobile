@@ -7,7 +7,7 @@ export const CloseIcon = ({
   color,
 }: {
   size?: number;
-  color: string;
+  color?: string;
 }) => {
   return (
     <View style={styles.icon}>

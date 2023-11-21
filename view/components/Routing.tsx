@@ -15,11 +15,15 @@ export default function Routing() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          statusBarTranslucent: true,
           contentStyle: { backgroundColor: colors.primary.black },
           headerStyle: {
             backgroundColor: colors.primary.black,
           },
-          headerTintColor: "#007aff",
+          headerTintColor:
+            Platform.OS === "ios"
+              ? colors.primary.blueIOS
+              : colors.primary.white,
         }}
       >
         <Stack.Screen name=" " component={HomeScreen} />
@@ -27,19 +31,32 @@ export default function Routing() {
           name="Search"
           component={SearchScreen}
           options={{
-            headerTintColor: colors.primary.white,
             header: () => <Header />,
+            statusBarColor:
+              Platform.OS === "ios"
+                ? colors.primary.black
+                : colors.secondary.black,
           }}
         />
-        <Stack.Screen name="Users" component={UsersScreen} />
+        <Stack.Screen
+          name="People"
+          component={UsersScreen}
+          options={{
+            headerStyle: {
+              backgroundColor:
+                Platform.OS === "ios"
+                  ? colors.primary.black
+                  : colors.secondary.black,
+            },
+            statusBarColor:
+              Platform.OS === "ios"
+                ? colors.primary.black
+                : colors.secondary.black,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "android" ? 55 : 0,
-    backgroundColor: colors.secondary.black,
-  },
-});
+const styles = StyleSheet.create({});

@@ -7,13 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  Platform,
 } from "react-native";
-import {
-  ArrowLeft,
-  CloseIcon,
-  RepoIcon,
-  UserIcon,
-} from "../../../assets/icons";
+import { CloseIcon } from "../../../assets/icons";
 import { colors, fonts } from "../../../styles/base";
 import { useAppState } from "../../../state/useState";
 
@@ -28,12 +24,16 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
     const [value, setValue] = useState("");
     const [clicked, setClicked] = useState(false);
     const { setTextValue }: any = useAppState();
+    const PlatformIOS = Platform.OS === "ios";
 
     const handleInputChange = (text: string) => {
       setValue(text);
     };
     const handleClearInput = () => {
       setValue("");
+      setTextValue("");
+
+      console.log("helllooo");
     };
 
     return (
@@ -44,11 +44,11 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
           alignItems: "center",
         }}
       >
-        <View style={styles.container}>
+        <View style={PlatformIOS ? styles.containerIOS : styles.container}>
           <TextInput
             value={value}
             autoFocus
-            style={styles.input}
+            style={PlatformIOS ? styles.inputIOS : styles.input}
             onChangeText={(text) => {
               handleInputChange(text);
               setTextValue(text);
@@ -65,23 +65,30 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
               onPress={handleClearInput}
               style={styles.clearIconContainer}
             >
-              {/* <CloseIcon /> */}
-              <View
-                style={{
-                  padding: 1,
-                  backgroundColor: "#7a797e",
-                  borderRadius: 111,
-                }}
-              >
-                <CloseIcon size={15} color="#19191a" />
-              </View>
+              {PlatformIOS ? (
+                <View
+                  style={{
+                    padding: 1,
+                    backgroundColor: "#7a797e",
+                    borderRadius: 111,
+                  }}
+                >
+                  <CloseIcon size={15} color="#19191a" />
+                </View>
+              ) : (
+                <CloseIcon />
+              )}
             </TouchableOpacity>
           )}
         </View>
         <View>
-          {clicked && (
+          {clicked && PlatformIOS && (
             <Text
-              style={{ color: "#2b6fc3", fontSize: 17, marginLeft: 16 }}
+              style={{
+                color: colors.primary.blueIOS,
+                fontSize: 17,
+                marginLeft: 16,
+              }}
               onPress={() => {
                 Keyboard.dismiss();
                 setClicked(false);
@@ -97,34 +104,20 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
 );
 
 const styles = StyleSheet.create({
-  searchOption: {
-    flexDirection: "row",
-    gap: 10,
-    paddingVertical: 18,
-    alignItems: "center",
-    color: colors.primary.white,
-  },
-  text: { color: colors.primary.white, fontSize: fonts.primary },
-  topPart: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingBottom: 12,
-  },
-  bottomPart: { paddingTop: 6 },
-  // container: {
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   justifyContent: "flex-start",
-  //   alignItems: "center",
-  //   gap: 20,
-  //   paddingBottom: 1,
-  //   paddingVertical: 5,
-  //   borderBottomWidth: 1,
-  //   borderTopColor: "none",
-  //   borderBottomColor: colors.border,
-  // },
   container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 20,
+    paddingBottom: 1,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderTopColor: "none",
+    borderBottomColor: colors.border,
+    marginLeft: 10,
+  },
+  containerIOS: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -136,13 +129,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#19191a",
   },
-  // input: {
-  //   fontSize: fonts.primary,
-  //   color: colors.primary.white,
-  //   height: 45,
-  //   flex: 1,
-  // },
   input: {
+    fontSize: fonts.primary,
+    color: colors.primary.white,
+    height: 45,
+    flex: 1,
+  },
+  inputIOS: {
     fontSize: 16,
     color: colors.primary.white,
     height: 20,
@@ -151,9 +144,6 @@ const styles = StyleSheet.create({
   clearIconContainer: {
     justifyContent: "center",
     alignItems: "center",
-  },
-  backIconContainer: {
-    paddingRight: 22,
   },
 });
 

@@ -4,7 +4,7 @@ import { colors } from "../../styles/base";
 import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   return (
     <View style={styles.container}>
       <Text

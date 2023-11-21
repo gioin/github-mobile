@@ -27,7 +27,7 @@ export default function SearchScreen() {
                 onPress={() => {
                   if (item.name === "user") {
                     fetchDataFromApi(textValue);
-                    navigation.navigate("Users");
+                    navigation.navigate("People");
                   }
                 }}
               >
@@ -69,7 +69,7 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   bottomPart: {
     paddingTop: 6,
-    backgroundColor: "#19191a",
+    backgroundColor: colors.secondary.black,
   },
   text: { color: colors.primary.white, fontSize: fonts.primary },
 });

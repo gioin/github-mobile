@@ -38,14 +38,7 @@ const Header = ({
 }: HeaderProps) => {
   const navigator = useNavigation();
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor:
-          Platform.OS === "android"
-            ? colors.secondary.black
-            : colors.primary.black,
-      }}
-    >
+    <SafeAreaView style={styles.safeAreaView}>
       <View
         style={{
           flexDirection: "row",
@@ -57,26 +50,9 @@ const Header = ({
           justifyContent: "center",
           paddingLeft: 60,
           paddingRight: 19,
+          paddingTop: Platform.OS === "android" ? 45 : 0,
         }}
       >
-        <View
-          style={{
-            position: "absolute",
-            left: -10,
-            top: -3,
-            marginLeft: 20,
-            flexDirection: "row",
-            gap: 7,
-          }}
-        >
-          <TouchableOpacity
-            style={{ alignSelf: "center" }}
-            onPress={() => console.log("Back icon pressed")}
-          >
-            {/* <ArrowLeft /> */}
-            <HeaderBackButton label=" " onPress={() => navigator.goBack()} />
-          </TouchableOpacity>
-        </View>
         <View
           style={{
             flexDirection: "row",
@@ -84,6 +60,26 @@ const Header = ({
             paddingBottom: 12,
           }}
         >
+          <View
+            style={
+              Platform.OS === "ios" ? styles.backButtonIOS : styles.backButton
+            }
+          >
+            <TouchableOpacity
+              style={{ alignSelf: "center" }}
+              onPress={() => console.log("Back icon pressed")}
+            >
+              <HeaderBackButton
+                label=" "
+                onPress={() => navigator.goBack()}
+                tintColor={
+                  Platform.OS === "ios"
+                    ? colors.primary.blueIOS
+                    : colors.primary.white
+                }
+              />
+            </TouchableOpacity>
+          </View>
           <CustomSearchInput />
         </View>
       </View>
@@ -95,17 +91,24 @@ export default Header;
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    paddingTop: Platform.OS === "android" ? 55 : 0,
+    backgroundColor: colors.primary.black,
   },
   container: {
     flexDirection: "row",
     justifyContent: "center",
     height: 50,
   },
+  backButtonIOS: {
+    position: "absolute",
+    left: -74,
+    top: -3,
+    marginLeft: 20,
+    gap: 7,
+  },
   backButton: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginRight: 20,
+    position: "absolute",
+    left: -55,
+    gap: 7,
   },
   title: {
     fontSize: Platform.OS === "android" ? 22 : 17,
