@@ -1,21 +1,16 @@
 import React, { useContext } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
-import CustomSearchInput from "../components/inputs/CustomSearchInput";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { colors, fonts } from "../../styles/base";
 import { RepoIcon, UserIcon } from "../../assets/icons";
 import { useNavigation } from "@react-navigation/native";
-import { SearchContext } from "../../App";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import useSearchAPI from "../../api/search/useSearchApi";
+import { useAppState } from "../../state/useState";
+import List from "../components/List";
 
 export default function SearchScreen() {
-  const navigation = useNavigation();
-  const { textValue }: any = useContext(SearchContext);
+  const navigation = useNavigation<any>();
+  const { textValue } = useAppState();
+  const { fetchDataFromApi } = useSearchAPI();
 
   return (
     <View>
@@ -24,35 +19,45 @@ export default function SearchScreen() {
           <FlatList
             scrollEnabled={false}
             data={[
-              { id: 1, name: "repository", icon: <RepoIcon /> },
               { id: 2, name: "user", icon: <UserIcon /> },
+              { id: 1, name: "repository", icon: <RepoIcon /> },
             ]}
             renderItem={({ item }) => (
-              <View>
-                <TouchableHighlight
-                  style={styles.searchOption}
-                  underlayColor={colors.hover}
-                  onPress={() => console.log("Pressed!")}
+              <List
+                onPress={() => {
+                  if (item.name === "user") {
+                    fetchDataFromApi(textValue);
+                    navigation.navigate("Users");
+                  }
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
                 >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingHorizontal: 20,
-                      justifyContent: "space-between",
-                      width: "100%",
-                    }}
-                  >
-                    <View style={{ flexDirection: "row", gap: 20 }}>
-                      {item.icon}
-                      <Text style={styles.text}>{textValue}</Text>
-                    </View>
-                    <View>
-                      <AntDesign name="right" size={16} color={"#5d5e61"} />
-                    </View>
+                  <View style={{ flexDirection: "row", gap: 20 }}>
+                    {item.icon}
+                    <Text style={styles.text}>{textValue}</Text>
                   </View>
-                </TouchableHighlight>
-              </View>
+                  {item.name === "repository" && (
+                    <Text
+                      style={{
+                        color: colors.primary.white,
+                        fontSize: 12,
+                        marginRight: "10%",
+                        alignItems: "center",
+                        textAlign: "center",
+                        marginTop: 3,
+                      }}
+                    >
+                      Not working yet
+                    </Text>
+                  )}
+                </View>
+              </List>
             )}
           />
         </View>
@@ -65,15 +70,6 @@ const styles = StyleSheet.create({
   bottomPart: {
     paddingTop: 6,
     backgroundColor: "#19191a",
-  },
-  searchOption: {
-    flexDirection: "row",
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    gap: 10,
-    paddingVertical: 18,
-    alignItems: "center",
-    color: colors.primary.white,
   },
   text: { color: colors.primary.white, fontSize: fonts.primary },
 });

@@ -16,17 +16,22 @@ export default function Routing() {
       <Stack.Navigator
         screenOptions={{
           contentStyle: { backgroundColor: colors.primary.black },
+          headerStyle: {
+            backgroundColor: colors.primary.black,
+          },
+          headerTintColor: "#007aff",
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name=" " component={HomeScreen} />
         <Stack.Screen
           name="Search"
           component={SearchScreen}
           options={{
+            headerTintColor: colors.primary.white,
             header: () => <Header />,
           }}
         />
-        <Stack.Screen name="User" component={UsersScreen} />
+        <Stack.Screen name="Users" component={UsersScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

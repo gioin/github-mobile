@@ -1,18 +1,11 @@
-import React, { useContext } from "react";
-import {
-  forwardRef,
-  InputHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React from "react";
+import { forwardRef, InputHTMLAttributes, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
   TouchableOpacity,
-  TouchableHighlight,
   Keyboard,
 } from "react-native";
 import {
@@ -22,7 +15,7 @@ import {
   UserIcon,
 } from "../../../assets/icons";
 import { colors, fonts } from "../../../styles/base";
-import { SearchContext } from "../../../App";
+import { useAppState } from "../../../state/useState";
 
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   searchList?: { [key: string]: any }[] | null;
@@ -33,11 +26,8 @@ export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
 const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
   ({ type = "text", searchList, isLoading, onChange, ...props }, ref) => {
     const [value, setValue] = useState("");
-    const [isSearchOpen, setIsSearchOpen] = useState(true);
     const [clicked, setClicked] = useState(false);
-    const { setTextValue }: any = useContext(SearchContext);
-
-    const inputRef = useRef(null);
+    const { setTextValue }: any = useAppState();
 
     const handleInputChange = (text: string) => {
       setValue(text);
@@ -153,7 +143,7 @@ const styles = StyleSheet.create({
   //   flex: 1,
   // },
   input: {
-    fontSize: 15,
+    fontSize: 16,
     color: colors.primary.white,
     height: 20,
     flex: 1,

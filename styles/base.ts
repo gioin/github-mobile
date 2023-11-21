@@ -7,7 +7,7 @@ export const dimensions = {
 
 export const colors = {
   primary: { black: "#02040a", white: "#fefefe" },
-  secondary: { black: "#111419" },
+  secondary: { black: "#111419", white: "#7c8590" },
   hover: "#171b20",
   border: "#30363d",
 };

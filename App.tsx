@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { createContext, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text, Button } from "react-native";
 import { colors } from "./styles/base";
 import Routing from "./view/components/Routing";
+import { StateProvider } from "./state/StateProvider";
 
 export const SearchContext = createContext({});
 
@@ -10,9 +11,9 @@ export default function App() {
   const [textValue, setTextValue] = useState("");
 
   return (
-    <SearchContext.Provider value={{ setTextValue: setTextValue, textValue }}>
+    <StateProvider>
       <Routing />
-    </SearchContext.Provider>
+    </StateProvider>
   );
 }
 
