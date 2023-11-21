@@ -2,7 +2,6 @@ import React, { ForwardedRef, ReactNode, forwardRef } from "react";
 import {
   Platform,
   StyleSheet,
-  Text,
   TouchableHighlight,
   TouchableHighlightProps,
   View,
@@ -22,7 +21,7 @@ const List = forwardRef(
   ) => {
     return (
       <TouchableHighlight
-        style={styles.searchOption}
+        style={styles.container}
         underlayColor={colors.hover}
         {...props}
         ref={ref}
@@ -51,7 +50,7 @@ const List = forwardRef(
 export default List;
 
 const styles = StyleSheet.create({
-  searchOption: {
+  container: {
     flexDirection: "row",
     borderBottomWidth: Platform.OS === "ios" ? 1 : 0,
     borderBottomColor: Platform.OS === "ios" ? colors.border : "auto",

@@ -9,7 +9,7 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import { CloseIcon } from "../../../assets/icons";
+import { CloseIcon, SearchIcon } from "../../../assets/icons";
 import { colors, fonts } from "../../../styles/base";
 import { useAppState } from "../../../state/useState";
 
@@ -43,6 +43,7 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
         }}
       >
         <View style={PlatformIOS ? styles.containerIOS : styles.container}>
+          <SearchIcon />
           <TextInput
             value={value}
             autoFocus
@@ -53,7 +54,7 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
               if (onChange !== undefined) onChange(text);
             }}
             placeholder="Search GitHub"
-            placeholderTextColor="#6e767d"
+            placeholderTextColor={colors.secondary.white}
             keyboardAppearance="dark"
             onFocus={() => {
               setClicked(true);
@@ -121,11 +122,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 20,
+    gap: 6,
     padding: 8,
     borderWidth: 1,
     borderColor: colors.primary.black,
-    borderRadius: 10,
+    borderRadius: 11,
     backgroundColor: "#19191a",
   },
   input: {
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
   clearIconContainer: {
     justifyContent: "center",
     alignItems: "center",
+    padding: 1,
   },
 });
 

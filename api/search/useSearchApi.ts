@@ -4,10 +4,6 @@ import { searchApiParser } from "./parser";
 import { ParsedUser, UserSearchResponse } from "./types";
 import { useAppState } from "../../state/useState";
 
-interface Props {
-  term: string;
-}
-
 interface UserSearchApi {
   data: ParsedUser[];
   isLoading: boolean;

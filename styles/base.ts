@@ -7,7 +7,12 @@ export const dimensions = {
 };
 
 export const colors = {
-  primary: { black: "#02040a", white: "#fefefe", blueIOS: "#007aff" },
+  primary: {
+    black: "#02040a",
+    white: "#fefefe",
+    gray: "#21262d",
+    blueIOS: "#007aff",
+  },
   secondary: { black: !PlatformIOS ? "#111419" : "#19191a", white: "#6e767d" },
   hover: "#171b20",
   border: "#30363d",
@@ -24,5 +29,5 @@ export const fonts = {
   sm: 12,
   md: 18,
   lg: 28,
-  primary: 18,
+  primary: 16,
 };

@@ -59,5 +59,3 @@ export default function Routing() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({});

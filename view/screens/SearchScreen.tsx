@@ -1,6 +1,13 @@
-import React, { useContext } from "react";
-import { FlatList, Platform, StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "../../styles/base";
+import React from "react";
+import {
+  FlatList,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { colors } from "../../styles/base";
 import { RepoIcon, UserIcon } from "../../assets/icons";
 import { useNavigation } from "@react-navigation/native";
 import useSearchAPI from "../../api/search/useSearchApi";
@@ -15,7 +22,10 @@ export default function SearchScreen() {
   return (
     <View>
       {textValue && (
-        <View style={styles.bottomPart}>
+        <ScrollView
+          style={styles.container}
+          keyboardShouldPersistTaps="handled"
+        >
           <FlatList
             scrollEnabled={false}
             data={[
@@ -31,14 +41,7 @@ export default function SearchScreen() {
                   }
                 }}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
+                <View style={styles.content}>
                   <View style={{ flexDirection: "row", gap: 20 }}>
                     <View style={{ marginTop: Platform.OS === "ios" ? 0 : 3 }}>
                       {item.icon}
@@ -46,35 +49,38 @@ export default function SearchScreen() {
                     <Text style={styles.text}>{textValue}</Text>
                   </View>
                   {item.name === "repository" && (
-                    <Text
-                      style={{
-                        color: colors.secondary.white,
-                        fontSize: 12,
-                        marginRight: "6%",
-                        alignItems: "center",
-                        textAlign: "center",
-                        position: "absolute",
-                        marginTop: 3,
-                        right: 0,
-                      }}
-                    >
-                      Not working yet
-                    </Text>
+                    <Text style={styles.notWorkingText}>Not working yet</Text>
                   )}
                 </View>
               </List>
             )}
           />
-        </View>
+        </ScrollView>
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  bottomPart: {
+  container: {
     paddingTop: 6,
     backgroundColor: colors.secondary.black,
   },
-  text: { color: colors.primary.white, fontSize: fonts.primary },
+  content: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+  text: { color: colors.primary.white, fontSize: 16 },
+  notWorkingText: {
+    color: colors.secondary.white,
+    fontSize: 12,
+    marginRight: "6%",
+    alignItems: "center",
+    textAlign: "center",
+    position: "absolute",
+    marginTop: 3,
+    right: 0,
+  },
 });

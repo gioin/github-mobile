@@ -2,7 +2,6 @@ import React from "react";
 import {
   Image,
   FlatList,
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -20,10 +19,10 @@ export default function UsersScreen() {
     return (
       <View
         style={{
-          marginTop: "60%",
+          marginTop: "80%",
         }}
       >
-        <ActivityIndicator />
+        <ActivityIndicator color={colors.primary.blueIOS} size={35} />
       </View>
     );
   }

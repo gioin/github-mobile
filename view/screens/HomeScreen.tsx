@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, StyleSheet, Text, View, Image } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { colors } from "../../styles/base";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,14 +25,17 @@ export default function HomeScreen() {
         discovery, a quest for knowledge, and a path to innovation.
       </Text>
       <View style={{ paddingVertical: 40 }}>
-        <Button
-          title="Start Here"
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.button}
           onPress={() => navigation.navigate("Search")}
-        />
+        >
+          <Text style={styles.buttonText}>Start Searching</Text>
+        </TouchableOpacity>
       </View>
       <Image
         source={require("../../assets/home-mobile-dark2x.webp")}
-        style={{ width: "80%", height: 200 }}
+        style={{ width: "80%", height: 230 }}
         resizeMode="contain"
         width={100}
       />
@@ -35,11 +45,21 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingTop: Platform.OS === "android" ? 55 : 0,
-    // backgroundColor: colors.secondary.black,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 100,
+  },
+  button: {
+    backgroundColor: colors.primary.gray,
+    paddingVertical: 8,
+    paddingHorizontal: 11,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+  },
+  buttonText: {
+    color: colors.primary.white,
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
