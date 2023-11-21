@@ -15,6 +15,7 @@ export default function Routing() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          animation: "slide_from_left",
           statusBarTranslucent: true,
           contentStyle: { backgroundColor: colors.primary.black },
           headerStyle: {

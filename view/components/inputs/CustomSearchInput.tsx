@@ -56,6 +56,7 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
             }}
             placeholder="Search GitHub"
             placeholderTextColor="#6e767d"
+            keyboardAppearance="dark"
             onFocus={() => {
               setClicked(true);
             }}
