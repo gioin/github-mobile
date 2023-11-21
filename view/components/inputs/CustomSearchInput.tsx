@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { forwardRef, InputHTMLAttributes, useState } from "react";
 import {
   StyleSheet,
@@ -12,6 +12,7 @@ import {
 import { CloseIcon, SearchIcon } from "../../../assets/icons";
 import { colors, fonts } from "../../../styles/base";
 import { useAppState } from "../../../state/useState";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   searchList?: { [key: string]: any }[] | null;
@@ -25,13 +26,22 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
     const [clicked, setClicked] = useState(false);
     const { setTextValue }: any = useAppState();
     const PlatformIOS = Platform.OS === "ios";
+    const inputRef = useRef(null);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        (inputRef.current as any).focus();
+      }, [])
+    );
 
     const handleInputChange = (text: string) => {
       setValue(text);
     };
+
     const handleClearInput = () => {
       setValue("");
       setTextValue("");
+      (inputRef.current as any).focus();
     };
 
     return (
@@ -45,6 +55,7 @@ const CustomSearchInput = forwardRef<HTMLInputElement, TextInputProps>(
         <View style={PlatformIOS ? styles.containerIOS : styles.container}>
           <SearchIcon />
           <TextInput
+            ref={inputRef}
             value={value}
             autoFocus
             style={PlatformIOS ? styles.inputIOS : styles.input}

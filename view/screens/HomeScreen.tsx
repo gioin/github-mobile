@@ -19,6 +19,7 @@ export default function HomeScreen() {
           color: colors.secondary.white,
           width: "70%",
           textAlign: "center",
+          letterSpacing: 0.1,
         }}
       >
         Searching is not just about finding information, it's a journey of

@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { colors } from "../../styles/base";
+import { colors, fonts } from "../../styles/base";
 import { RepoIcon, UserIcon } from "../../assets/icons";
 import { useNavigation } from "@react-navigation/native";
 import useSearchAPI from "../../api/search/useSearchApi";
@@ -22,10 +22,7 @@ export default function SearchScreen() {
   return (
     <View>
       {textValue && (
-        <ScrollView
-          style={styles.container}
-          keyboardShouldPersistTaps="handled"
-        >
+        <ScrollView style={styles.container} keyboardShouldPersistTaps="always">
           <FlatList
             scrollEnabled={false}
             data={[
@@ -56,6 +53,40 @@ export default function SearchScreen() {
             )}
           />
         </ScrollView>
+      )}
+      {!textValue && (
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "50%",
+          }}
+        >
+          <Text
+            style={{
+              color: colors.primary.white,
+              textAlign: "center",
+              fontSize: fonts.lg,
+              marginBottom: 10,
+              letterSpacing: 0.1,
+              fontWeight: "bold",
+            }}
+          >
+            Find your stuff.
+          </Text>
+          <Text
+            style={{
+              color: colors.secondary.white,
+              width: "80%",
+              textAlign: "center",
+              letterSpacing: 0.1,
+              fontSize: 15,
+            }}
+          >
+            Search all of Github for People, Repositories, Organizations,
+            Issues,and Pull Requests.
+          </Text>
+        </View>
       )}
     </View>
   );
