@@ -8,8 +8,6 @@ import { StateProvider } from "./state/StateProvider";
 export const SearchContext = createContext({});
 
 export default function App() {
-  const [textValue, setTextValue] = useState("");
-
   return (
     <StateProvider>
       <Routing />
