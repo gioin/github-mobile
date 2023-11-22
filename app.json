@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#02040a"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,6 +25,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2cbff916-0581-4797-acf0-414dbe8e5ab7"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2cbff916-0581-4797-acf0-414dbe8e5ab7"
     }
   }
 }
